@@ -6,6 +6,7 @@
  import FormControlLabel from '@material-ui/core/FormControlLabel';
  import Button from '@material-ui/core/Button';
  import Checkbox from '@material-ui/core/Checkbox';
+ import MUIDataTable from "mui-datatables";
  import {
     Pagination,
     PaginationItem,
@@ -85,9 +86,11 @@
       //     })
       api.getAllStudents().then((response) =>{
          this.setState({ users: response.data });
+         console.log("test users" + JSON.stringify(response.data));
       }).catch(error => {
          // error hanlding
       })
+      
     }
  
    /**
@@ -264,6 +267,61 @@
  
     render() {
        const { users, loading, selectedUser, editUser, allSelected, selectedUsers } = this.state;
+       const options = {
+			filterType: 'dropdown',
+			responsive: 'stacked'
+		};
+      const columns =[
+         {
+            name: "admissionNum",
+            label: "Admission Number",
+            options: {
+             filter: true,
+             sort: true,
+            }
+           },
+           {
+            name: "firstName",
+            label: "First Name",
+            options: {
+             filter: true,
+             sort: false,
+            }
+           },
+           {
+            name: "fatherName",
+            label: "Father Name",
+            options: {
+             filter: true,
+             sort: false,
+            }
+           },
+           {
+            name: "mobileNum",
+            label: "Mobile Number",
+            options: {
+             filter: true,
+             sort: false,
+            }
+           },
+           {
+            name: "sex",
+            label: "Sex",
+            options: {
+             filter: true,
+             sort: false,
+            }
+           },
+           {
+            name: "dob",
+            label: "Date of birth",
+            options: {
+             filter: true,
+             sort: false,
+            }
+           }
+           
+      ];      
        return (
           <div className="user-management">
              <Helmet>
@@ -274,6 +332,23 @@
                 title={<IntlMessages id="sidebar.studentsManagement" />}
                 match={this.props.match}
              />
+             <RctCollapsibleCard heading="Student Table" fullBlock>
+               { users && <MUIDataTable
+						title={<IntlMessages id="sidebar.studentsList" />}
+						data={users && users.map(item => {
+                     return [
+                         item.admissionNum,
+                         item.firstName + item.lastName,
+                         item.fatherName,
+                         item.mobileNum,
+                         item.sex,
+                         item.dob
+                     ]
+                 })}
+                 columns={columns}
+						options={options}
+					/>}
+				</RctCollapsibleCard>
              <RctCollapsibleCard fullBlock>
                 <div className="table-responsive">
                    <div className="d-flex justify-content-between py-20 px-10 border-bottom">
@@ -384,6 +459,7 @@
                    <RctSectionLoader />
                 }
              </RctCollapsibleCard>
+             
              <DeleteConfirmationDialog
                 ref="deleteConfirmationDialog"
                 title="Are You Sure Want To Delete?"
