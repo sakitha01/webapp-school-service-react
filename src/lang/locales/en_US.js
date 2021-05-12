@@ -2,6 +2,7 @@ module.exports = {
    "sidebar.students": "students",
    "sidebar.studentgeneral": "students",
    "sidebar.viewstudent": "view all students",
+   "sidebar.createStudent": "Create Student",
    "sidebar.studentsManagement": "Student Management",
    "sidebar.app": "App",
    "sidebar.news": "News",

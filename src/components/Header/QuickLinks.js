@@ -72,6 +72,12 @@ const QuickLinks = ({ location }) => (
 								<IntlMessages id="sidebar.viewstudent" />
 							</Link>
 						</li>
+						<li>
+							<Link to={`/${getAppLayout(location)}/students/create-student`}>
+								<i className="ti-user text-success mr-10"></i>
+								<IntlMessages id="sidebar.createStudent" />
+							</Link>
+						</li>
 
 					</ul>
 				</div>

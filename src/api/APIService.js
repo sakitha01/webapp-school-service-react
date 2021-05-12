@@ -55,5 +55,13 @@ export default class AuthService {
         return decode(this.getToken());
     }
 
+    addStudent(formData){
+        console.log("auth"+formData);
+        return axios.post(`${this.domain}/create_student`,formData,{headers : {Authorization:'Bearer '+this.getToken(),'Content-Type': 'multipart/form-data'}}).then(res => {
+        this.setToken(res.data.jwt) // Setting the token in localStorage
+        return res.data;
+        })
+    }
+
 
 }

@@ -10,7 +10,8 @@ import {
     AsyncUsersListComponent,
     AsyncUserProfileComponent,
     AsyncUserProfile1Component,
-    AsyncStudentManagementComponent
+    AsyncStudentManagementComponent,
+    AsyncCreateStudentComponent
 } from 'Components/AsyncComponent/AsyncComponent';
 
 const Forms = ({ match }) => (
@@ -21,6 +22,7 @@ const Forms = ({ match }) => (
             <Route path={`${match.url}/user-list`} component={AsyncUsersListComponent} />
             <Route path={`${match.url}/user-profile-1`} component={AsyncUserProfile1Component} />
             <Route path={`${match.url}/students-management`} component={AsyncStudentManagementComponent} />
+            <Route path={`${match.url}/create-student`} component={AsyncCreateStudentComponent} />
         </Switch>
     </div>
 );

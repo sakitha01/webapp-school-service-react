@@ -219,6 +219,11 @@ const AsyncStudentManagementComponent = Loadable({
    loading: () => <RctPageLoader />,
 });
 
+const AsyncCreateStudentComponent = Loadable({
+   loader: () => import("Routes/students/create-student"),
+   loading: () => <RctPageLoader />,
+});
+
 // Users Profile
 const AsyncUserProfileComponent = Loadable({
    loader: () => import("Routes/users/user-profile"),
@@ -543,6 +548,7 @@ const AsyncReportsComponent = Loadable({
 
 
 export {
+   AsyncCreateStudentComponent,
    AsyncStudentManagementComponent,
    AsyncUserWidgetComponent,
    AsyncUserChartsComponent,

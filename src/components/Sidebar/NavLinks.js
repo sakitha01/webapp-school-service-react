@@ -633,6 +633,11 @@ export default {
                "path": "/app/students/students-management",
                "new_item": false,
                "menu_title": "sidebar.viewstudent",
+            },
+            {
+               "path": "/app/students/create-student",
+               "new_item": false,
+               "menu_title": "sidebar.createStudent",
             }
          ]
       }
