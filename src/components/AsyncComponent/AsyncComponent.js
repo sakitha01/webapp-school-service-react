@@ -208,11 +208,7 @@ const AsyncResponsiveTableComponent = Loadable({
    loading: () => <RctPageLoader />,
 });
 
-// Users List
-const AsyncUsersListComponent = Loadable({
-   loader: () => import("Routes/users/user-list"),
-   loading: () => <RctPageLoader />,
-});
+/*--------------- Students ----------------*/
 
 const AsyncStudentManagementComponent = Loadable({
    loader: () => import("Routes/students/students-management"),
@@ -221,6 +217,21 @@ const AsyncStudentManagementComponent = Loadable({
 
 const AsyncCreateStudentComponent = Loadable({
    loader: () => import("Routes/students/create-student"),
+   loading: () => <RctPageLoader />,
+});
+
+/*--------------- Staff ----------------*/
+
+const AsyncCreateStaffComponent = Loadable({
+   loader: () => import("Routes/staff/create-staff"),
+   loading: () => <RctPageLoader />,
+});
+
+/*--------------- Users ----------------*/
+
+// Users List
+const AsyncUsersListComponent = Loadable({
+   loader: () => import("Routes/users/user-list"),
    loading: () => <RctPageLoader />,
 });
 
@@ -548,6 +559,7 @@ const AsyncReportsComponent = Loadable({
 
 
 export {
+   AsyncCreateStaffComponent,
    AsyncCreateStudentComponent,
    AsyncStudentManagementComponent,
    AsyncUserWidgetComponent,

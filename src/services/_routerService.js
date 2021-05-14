@@ -19,7 +19,7 @@ import ImageCropper from 'Routes/image-cropper';
 import VideoPlayer from 'Routes/video-player';
 import Dropzone from 'Routes/dropzone';
 import Students from 'Routes/students';
-
+import Staff from 'Routes/staff';
 
 // async component
 import {
@@ -125,6 +125,11 @@ export default [
    {
       path: 'students',
       component: Students
+
+   },
+   {
+      path: 'staff',
+      component: Staff
 
    }
 ]

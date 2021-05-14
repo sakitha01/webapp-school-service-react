@@ -641,5 +641,24 @@ export default {
             }
          ]
       }
+   ],
+   category8: [
+      {
+         "menu_title": "sidebar.staffGeneral",
+         "menu_icon": "zmdi zmdi-view-dashboard",
+         "new_item": true,
+         "child_routes": [
+            {
+               "path": "/app/students/students-management",
+               "new_item": false,
+               "menu_title": "sidebar.viewstudent",
+            },
+            {
+               "path": "/app/staff/create-staff",
+               "new_item": false,
+               "menu_title": "sidebar.createStaff",
+            }
+         ]
+      }
    ]
 }

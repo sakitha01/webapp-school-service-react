@@ -12,7 +12,7 @@
      Col,
      FormFeedback
  } from 'reactstrap';
- 
+ import _ from 'lodash';
  // page title bar
  import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
  
@@ -24,11 +24,11 @@
  import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
 import AuthService from '../../../api/APIService';
  
- export default class CreateTeacher extends Component {
+ export default class CreateStaff extends Component {
     constructor(props) {
         super(props);
         this.state = {            
-            student:{
+            staff:{
                 firstName:"",
                 middleName:"",
                 lastName:"",
@@ -37,9 +37,14 @@ import AuthService from '../../../api/APIService';
                 mobileNum:"",                
                 dob:"",
                 sex:"",
-                address1:"",
-                address2:"",                
-                pincode:""
+                addressDetails:{
+                    address1:"",
+                    address2:"",
+                    city:"",
+                    state:"",
+                    country:"",
+                    pincode:""
+                }
                                
             }      
           
@@ -55,23 +60,35 @@ import AuthService from '../../../api/APIService';
         
        
       }
-      handleChange(event) {
-        const { student } = { ...this.state };
-        const currentState = student;
-        const { name, value } = event.target;
-        currentState[name] = value;
-      
-        this.setState({ student: currentState });
-        console.log("onchange"+JSON.stringify(this.state.student));
+      handleChange(type, name, event) {
+        // const { staff } = { ...this.state };
+        // const currentState = staff;
+        // const { name, value } = event.target;
+        // currentState[name] = value;
+
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        this.setState({
+            staff: {
+            ...this.state.staff,
+            [type]:{
+              ...this.state.staff[type],
+              [name]: value,
+            }
+          }
+        });
+        console.log(type,name,value);
+        //this.setState({ staff: currentState });
+        console.log("onchange"+JSON.stringify(this.state.staff));
       }
     
       handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData();
          formData.append('file', this.state.file);
-         formData.append('studJson',JSON.stringify(this.state.student));
-        console.log("Test"+JSON.stringify(this.state.student));
-        this.api.addStudent(formData).then((response) => {
+         formData.append('teachJson',JSON.stringify(this.state.staff));
+        console.log("Test"+JSON.stringify(this.state.staff));
+        this.api.addStaff(formData).then((response) => {
           console.log(response);
         })
       }
@@ -87,10 +104,10 @@ import AuthService from '../../../api/APIService';
      render() {
          return (
              <div className="formelements-wrapper">
-                 <PageTitleBar title={<IntlMessages id="sidebar.createStudent" />} match={this.props.match} />
+                 <PageTitleBar title={<IntlMessages id="sidebar.createStaff" />} match={this.props.match} />
                  <div className="row">
                      <div className="col-sm-12 col-md-12 col-xl-8">
-                         <RctCollapsibleCard heading="Create New Sturdent">
+                         <RctCollapsibleCard heading="Create New Staff">
                              <Form>
                                  <FormGroup>
                                      <Label for="Text">First Name</Label>
@@ -118,7 +135,7 @@ import AuthService from '../../../api/APIService';
                                  </FormGroup> */}
                                  <FormGroup>
                                      <Label for="Text">Address1</Label>
-                                     <Input type="text" name="address1" id="address1" placeholder="Address 1" value={this.state.address1} onChange={this.handleChange}/>
+                                     <Input type="text" name="address1" id="address1" placeholder="Address 1" value={this.state.staff.addressDetails.address1} onChange={this.handleChange.bind(this,'addressDetails','address1')}/>
                                  </FormGroup>
                                  <FormGroup>
                                      <Label for="Text">Address2</Label>

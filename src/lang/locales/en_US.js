@@ -5,6 +5,8 @@ module.exports = {
    "sidebar.createStudent": "Create Student",
    "sidebar.studentsManagement": "Student Management",
    "sidebar.studentsList": "Students List",
+   "sidebar.staffGeneral": "Staffs",
+   "sidebar.createStaff": "Create Staff",
    "sidebar.app": "App",
    "sidebar.news": "News",
    "sidebar.horizontal": "Horizontal",
