@@ -23,7 +23,7 @@
  import api from '../../../api/APIService'
  import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
 import AuthService from '../../../api/APIService';
- 
+ import Address from '../create-staff/Address';
  export default class CreateStaff extends Component {
     constructor(props) {
         super(props);
@@ -34,7 +34,7 @@ import AuthService from '../../../api/APIService';
                 lastName:"",
                 fatherName:"",
                 motherName:"",
-                mobileNum:"",                
+                mobileNumber:"",                
                 dob:"",
                 sex:"",
                 addressDetails:{
@@ -44,10 +44,10 @@ import AuthService from '../../../api/APIService';
                     state:"",
                     country:"",
                     pincode:""
-                }
-                               
-            }      
-          
+                },
+                addres: null 
+                             
+            } 
            
         };
 
@@ -60,12 +60,18 @@ import AuthService from '../../../api/APIService';
         
        
       }
-      handleChange(type, name, event) {
-        // const { staff } = { ...this.state };
-        // const currentState = staff;
-        // const { name, value } = event.target;
-        // currentState[name] = value;
+      handleChange(event) {
+        console.log("parent"+event.target.value);
+        const { staff } = { ...this.state };
+        const currentState = staff;
+        const { name, value } = event.target;
+        currentState[name] = value;
 
+        
+        this.setState({ staff: currentState });
+        console.log("onchange"+JSON.stringify(this.state.staff));
+      }
+      handleChangeaddress(type, name, event){
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         this.setState({
@@ -77,12 +83,10 @@ import AuthService from '../../../api/APIService';
             }
           }
         });
-        console.log(type,name,value);
-        //this.setState({ staff: currentState });
-        console.log("onchange"+JSON.stringify(this.state.staff));
+         console.log(type,name,value);
       }
-    
       handleSubmit(event) {
+        console.log("inside parent")
         event.preventDefault();
         const formData = new FormData();
          formData.append('file', this.state.file);
@@ -101,7 +105,20 @@ import AuthService from '../../../api/APIService';
         })
     }
  
+    handleCallback = (childData) =>{
+        console.log("callback"+childData);
+        console.log("kavi1"+JSON.stringify(childData))
+        this.setState({
+            staff:{
+                ...this.state.staff,
+                addres:childData,
+                
+            }
+        })       
+        console.log("kavi2"+JSON.stringify(this.state))
+    }
      render() {
+        const {addressDetails,staff} = this.state;
          return (
              <div className="formelements-wrapper">
                  <PageTitleBar title={<IntlMessages id="sidebar.createStaff" />} match={this.props.match} />
@@ -125,30 +142,31 @@ import AuthService from '../../../api/APIService';
                                      <Label for="Text">Mother Name</Label>
                                      <Input type="text" name="motherName" id="motherName" placeholder="Mother Name" value={this.state.motherName} onChange={this.handleChange}/>
                                  </FormGroup>
-                                 <FormGroup>
-                                     <Label for="Text">Guardian Name</Label>
-                                     <Input type="text" name="guardianName" id="guardianName" placeholder="Guardian Name" value={this.state.guardianName} onChange={this.handleChange}/>
-                                 </FormGroup>
                                  {/* <FormGroup>
-                                     <Label for="Password">Password</Label>
-                                     <Input type="password" name="password" id="Password" placeholder="password" />
-                                 </FormGroup> */}
-                                 <FormGroup>
                                      <Label for="Text">Address1</Label>
-                                     <Input type="text" name="address1" id="address1" placeholder="Address 1" value={this.state.staff.addressDetails.address1} onChange={this.handleChange.bind(this,'addressDetails','address1')}/>
+                                     <Input type="text" name="address1" id="address1" placeholder="Address 1" value={this.state.staff.addressDetails.address1} onChange={this.handleChangeaddress.bind(this,"addressDetails","address1")}/>
                                  </FormGroup>
                                  <FormGroup>
                                      <Label for="Text">Address2</Label>
-                                     <Input type="text" name="address2" id="address2" placeholder="Address 2" value={this.state.address2} onChange={this.handleChange}/>
+                                     <Input type="text" name="address2" id="address2" placeholder="Address 2" value={this.state.staff.addressDetails.address2} onChange={this.handleChangeaddress.bind(this,"addressDetails","address2")}/>
                                  </FormGroup>
                                  <FormGroup>
-                                     <Label for="Text">Address1</Label>
-                                     <Input type="text" name="address3" id="address3" placeholder="Address 3" value={this.state.address3} onChange={this.handleChange}/>
+                                     <Label for="Text">City</Label>
+                                     <Input type="text" name="city" id="city" placeholder="city" value={this.state.staff.addressDetails.city} onChange={this.handleChangeaddress.bind(this,"addressDetails","city")}/>
+                                 </FormGroup>
+                                 <FormGroup>
+                                     <Label for="Text">State</Label>
+                                     <Input type="text" name="State" id="state" placeholder="State" value={this.state.staff.addressDetails.state} onChange={this.handleChangeaddress.bind(this,"addressDetails","state")}/>
+                                 </FormGroup>
+                                 <FormGroup>
+                                     <Label for="Text">Country</Label>
+                                     <Input type="text" name="Country" id="country" placeholder="country" value={this.state.staff.addressDetails.country} onChange={this.handleChangeaddress.bind(this,"addressDetails","country")}/>
                                  </FormGroup>
                                  <FormGroup>
                                      <Label for="Text">Pincode</Label>
-                                     <Input type="text" name="pincode" id="pincode" placeholder="Pincode" value={this.state.pincode} onChange={this.handleChange}/>
-                                 </FormGroup>
+                                     <Input type="text" name="Pincode" id="pincode" placeholder="pincode" value={this.state.staff.addressDetails.pincode} onChange={this.handleChangeaddress.bind(this,"addressDetails","pincode")}/>
+                                 </FormGroup> */}
+                               
                                  <FormGroup>
 									<Label for="Email">Email</Label>
 									<Input type="email" name="emailId" id="emailId" placeholder="Email address" value={this.state.emailId} onChange={this.handleChange}/>
@@ -185,16 +203,12 @@ import AuthService from '../../../api/APIService';
                                              Option three is disabled
                          </Label>
                                      </FormGroup> */}
-                                 </FormGroup>
-                                 <FormGroup>
-									<Label for="File">File</Label>
-									<Input type="file" name="file" id="File" onChange={this.uploadSingleFile} />
-									<FormText color="muted">
-										This is some placeholder block-level help text for the above input.
-                                        Its a bit lighter and easily wraps to a new line.
-                                    </FormText>
-								</FormGroup>
-                                 
+
+                                 </FormGroup>   
+                                 <Address 
+                                 handleChange={this.handleChange}
+                                 onSubmit={this.handleSubmit}
+                                 parentCallback = {this.handleCallback}/>                              
                                  <Button type="submit" color="primary" onClick={this.handleSubmit}>Submit</Button>
                                  <Button color="primary" onClick={this.handleClear}>Clear</Button>
                              </Form>
